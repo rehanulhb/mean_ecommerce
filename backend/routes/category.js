@@ -1,15 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const Category = require("./../db/category");
+const {
+  addCategory,
+  updateCategory,
+  deleteCategory,
+} = require("../handlers/category-handler");
 
 router.post("", async (req, res) => {
   console.log("Here");
   let model = req.body;
-  let category = new Category({
-    name: model.name,
-  });
-  category.save();
-  res.send(category.toObject());
+  let result = await addCategory(model);
+  res.send(result);
 });
 
 router.put("/:id", async (req, res) => {
@@ -17,8 +19,14 @@ router.put("/:id", async (req, res) => {
   let model = req.body;
   let id = req.params["id"];
 
-  await Category.findOneAndUpdate({ _id: id }, model);
+  await updateCategory(id, model);
   res.send({ message: "Updated" });
+});
+
+router.delete("/:id", async (req, res) => {
+  let id = req.params["id"];
+  await deleteCategory(id);
+  res.send({ message: "Deleted" });
 });
 
 module.exports = router;
