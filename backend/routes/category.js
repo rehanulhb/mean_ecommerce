@@ -5,12 +5,18 @@ const {
   addCategory,
   updateCategory,
   deleteCategory,
+  getCategories,
 } = require("../handlers/category-handler");
 
 router.post("", async (req, res) => {
   console.log("Here");
   let model = req.body;
   let result = await addCategory(model);
+  res.send(result);
+});
+
+router.get("", async (req, res) => {
+  let result = await getCategories();
   res.send(result);
 });
 

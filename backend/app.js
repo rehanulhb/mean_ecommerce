@@ -3,7 +3,10 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const app = express();
 const port = 3000;
+const cors = require("cors");
 const categoryRoutes = require("./routes/category");
+
+app.use(cors());
 
 app.use(express.json());
 app.get("/", (req, res) => {
