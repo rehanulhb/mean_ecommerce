@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Category } from '../../../services/category';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-form',
@@ -15,10 +15,32 @@ export class CategoryForm {
   name!: string;
   categoryService = inject(Category);
   router = inject(Router);
+  route = inject(ActivatedRoute);
+  cdr = inject(ChangeDetectorRef);
+  isEdit = false;
+  id!: string;
+  ngOnInit() {
+    this.id = this.route.snapshot.params['id'];
+    if (this.id) {
+      this.isEdit = true;
+      this.categoryService.getCategoryById(this.id).subscribe((result: any) => {
+        console.log(result);
+        this.name = result.name;
+        this.cdr.detectChanges();
+      });
+    }
+  }
   add() {
     console.log(this.name);
     this.categoryService.addCategory(this.name).subscribe((result: any) => {
       alert('Category Added');
+      this.router.navigateByUrl('/admin/categories');
+    });
+  }
+  update() {
+    console.log(this.name);
+    this.categoryService.updateCategory(this.id, this.name).subscribe((result: any) => {
+      alert('Category Updated');
       this.router.navigateByUrl('/admin/categories');
     });
   }

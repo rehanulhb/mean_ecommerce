@@ -6,6 +6,7 @@ const {
   updateCategory,
   deleteCategory,
   getCategories,
+  getCategoryById,
 } = require("../handlers/category-handler");
 
 router.post("", async (req, res) => {
@@ -17,6 +18,12 @@ router.post("", async (req, res) => {
 
 router.get("", async (req, res) => {
   let result = await getCategories();
+  res.send(result);
+});
+
+router.get("/:id", async (req, res) => {
+  let id = req.params["id"];
+  let result = await getCategoryById(id);
   res.send(result);
 });
 

@@ -28,4 +28,10 @@ async function deleteCategory(id) {
   return;
 }
 
-module.exports = { addCategory, updateCategory, deleteCategory, getCategories };
+module.exports = {
+  addCategory,
+  updateCategory,
+  deleteCategory,
+  getCategories,
+  getCategoryById,
+};
