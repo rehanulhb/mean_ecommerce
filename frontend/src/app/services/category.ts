@@ -23,4 +23,7 @@ export class Category {
       name: name,
     });
   }
+  deleteCategoryById(id: string) {
+    return this.http.delete('http://localhost:3000/category/' + id);
+  }
 }

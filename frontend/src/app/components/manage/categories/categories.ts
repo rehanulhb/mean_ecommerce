@@ -38,6 +38,10 @@ export class Categories {
   }
 
   ngOnInit() {
+    this.getServerData();
+  }
+
+  private getServerData() {
     this.categoryService.getCategories().subscribe((result: any) => {
       console.log(result);
       this.dataSource.data = result;
@@ -56,5 +60,12 @@ export class Categories {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  delete(id: string) {
+    console.log(id);
+    this.categoryService.deleteCategoryById(id).subscribe((result: any) => {
+      alert('Category Deleted');
+      this.getServerData();
+    });
   }
 }
