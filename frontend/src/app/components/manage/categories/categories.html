@@ -35,12 +35,14 @@
           <button
             mat-Button="filled"
             class="!bg-blue-600 !text-white !rounded-full px-6 py-2 font-medium shadow-md hover:shadow-lg hover:bg-blue-700 active:scale-95 transition-all duration-200 mr-4"
+            [routerLink]="'/admin/categories/' + row._id"
           >
             Edit
           </button>
           <button
             mat-Button="filled"
             class="!bg-red-600 !text-white !rounded-full px-6 py-2 font-medium shadow-md hover:shadow-lg hover:bg-blue-700 active:scale-95 transition-all duration-200 mr-4"
+            routerLink="/admin/categories/add"
           >
             Delete
           </button>

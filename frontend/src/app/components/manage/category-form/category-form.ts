@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { Category } from '../../../services/category';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-form',
@@ -11,5 +13,13 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class CategoryForm {
   name!: string;
-  add() {}
+  categoryService = inject(Category);
+  router = inject(Router);
+  add() {
+    console.log(this.name);
+    this.categoryService.addCategory(this.name).subscribe((result: any) => {
+      alert('Category Added');
+      this.router.navigateByUrl('/admin/categories');
+    });
+  }
 }
