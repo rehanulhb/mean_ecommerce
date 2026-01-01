@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { Category } from '../../../services/category';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { TCategory } from '../../../types/category';
 
 @Component({
   selector: 'app-categories',
@@ -25,7 +26,7 @@ import { RouterLink } from '@angular/router';
 })
 export class Categories {
   displayedColumns: string[] = ['id', 'name', 'action'];
-  dataSource: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<TCategory>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -42,7 +43,7 @@ export class Categories {
   }
 
   private getServerData() {
-    this.categoryService.getCategories().subscribe((result: any) => {
+    this.categoryService.getCategories().subscribe((result) => {
       console.log(result);
       this.dataSource.data = result;
     });
