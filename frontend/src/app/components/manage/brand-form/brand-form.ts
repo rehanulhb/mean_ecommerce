@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Brand } from '../../../services/brand';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-brand-form',
@@ -15,10 +15,26 @@ export class BrandForm {
   name!: string;
   brandsService = inject(Brand);
   router = inject(Router);
+  route = inject(ActivatedRoute);
+  cdr = inject(ChangeDetectorRef);
+  id!: string;
+  ngOnInit() {
+    this.id = this.route.snapshot.params['id'];
+    this.brandsService.getBrandById(this.id).subscribe((result) => {
+      this.name = result.name;
+      this.cdr.detectChanges();
+    });
+  }
 
   add() {
     this.brandsService.addBrand(this.name).subscribe((result) => {
       alert('Brand Added');
+      this.router.navigateByUrl('/admin/brands');
+    });
+  }
+  update() {
+    this.brandsService.updateBrand(this.id, this.name).subscribe((result) => {
+      alert('Brand Updated');
       this.router.navigateByUrl('/admin/brands');
     });
   }
