@@ -14,19 +14,7 @@ router.post("/", async (req, res) => {
   res.send(product);
 });
 
-router.get("", async (req, res) => {
-  let result = await getAllProducts();
-  res.send(result);
-});
-
-router.get("/:id", async (req, res) => {
-  let id = req.params["id"];
-  let result = await getProduct(id);
-  res.send(result);
-});
-
 router.put("/:id", async (req, res) => {
-  console.log("Update");
   let model = req.body;
   let id = req.params["id"];
 
@@ -38,6 +26,17 @@ router.delete("/:id", async (req, res) => {
   let id = req.params["id"];
   await deleteProduct(id);
   res.send({ message: "Deleted" });
+});
+
+router.get("/:id", async (req, res) => {
+  let id = req.params["id"];
+  let product = await getProduct(id);
+  res.send(product);
+});
+
+router.get("/", async (req, res) => {
+  let products = await getAllProducts();
+  res.send(products);
 });
 
 module.exports = router;
