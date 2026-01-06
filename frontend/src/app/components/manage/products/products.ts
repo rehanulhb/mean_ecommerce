@@ -9,8 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 
 import { TBrand } from '../../../types/brand';
-import { Brand } from '../../../services/brand';
+
 import { Product } from '../../../services/product';
+import { TProduct } from '../../../types/product';
 
 @Component({
   selector: 'app-products',
@@ -27,8 +28,8 @@ import { Product } from '../../../services/product';
   styleUrl: './products.scss',
 })
 export class Products {
-  displayedColumns: string[] = ['id', 'name', 'action'];
-  dataSource: MatTableDataSource<TBrand>;
+  displayedColumns: string[] = ['id', 'name', 'shortDescription', 'price', 'discount', 'action'];
+  dataSource: MatTableDataSource<TProduct>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -45,7 +46,7 @@ export class Products {
   }
 
   private getServerData() {
-    this.productService.getBrands().subscribe((result) => {
+    this.productService.getAllProducts().subscribe((result) => {
       console.log(result);
       this.dataSource.data = result;
     });
@@ -66,8 +67,8 @@ export class Products {
   }
   delete(id: string) {
     console.log(id);
-    this.brandService.deleteBrandById(id).subscribe((result: any) => {
-      alert('Brand Deleted');
+    this.productService.deleteProduct(id).subscribe((result: any) => {
+      alert('Product Deleted');
       this.getServerData();
     });
   }
