@@ -3,7 +3,7 @@ export interface TProduct {
   name: string;
   shortDescription: string;
   description: string;
-  Price: number;
+  price: number;
   discount: number;
   images: string[];
   categoryId: string;
