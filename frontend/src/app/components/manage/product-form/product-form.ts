@@ -15,9 +15,11 @@ export class ProductForm {
     name: [null, [Validators.required, Validators.minLength(5)]],
     shortDescription: [null, [Validators.required, Validators.minLength(10)]],
     description: [null, [Validators.required, Validators.minLength(50)]],
-    Price: [null, [Validators.required]],
+    price: [null, [Validators.required]],
     discount: [],
-    images: [],
+    images: this.formbuilder.array([]),
     categoryId: [null, [Validators.required]],
   });
+
+  addProduct() {}
 }
