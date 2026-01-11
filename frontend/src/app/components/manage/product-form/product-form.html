@@ -24,10 +24,12 @@
       </mat-form-field>
       <div class="w-full flex flex-col" formArrayName="images">
         <h4>Images</h4>
+        @for(item of images.controls; track $index){
         <mat-form-field class="w-full flex-col">
           <mat-label>Images 1</mat-label>
           <input matInput type="text" formControlName="img1" />
         </mat-form-field>
+        }
       </div>
     </div>
     <div class="flex justify-center">
