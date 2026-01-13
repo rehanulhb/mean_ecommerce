@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.cdk-overlay-pane {
+  background-color: rgb(239, 230, 230);
+}

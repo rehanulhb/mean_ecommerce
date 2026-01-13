@@ -3,6 +3,21 @@
   <form class="shadow-md p-4" [formGroup]="productForm">
     <div class="flex flex-wrap">
       <mat-form-field class="w-full">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="categoryId" multiple Class="fix-select-panel">
+          @for(item of categories; track $index){
+          <mat-option [value]="">{{ item.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Brand</mat-label>
+        <mat-select formControlName="brandId" multiple>
+          <mat-option [value]="">option1</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
         <mat-label>Name</mat-label>
         <input matInput type="text" formControlName="name" />
       </mat-form-field>
@@ -23,17 +38,42 @@
         <input matInput type="number" formControlName="discount" />
       </mat-form-field>
       <div class="w-full flex flex-col" formArrayName="images">
-        <h4>Images</h4>
+        <div class="flex justify-between">
+          <h4>Images</h4>
+          <button
+            class="!bg-blue-600 !text-white !rounded-full px-6 py-2 font-medium shadow-md hover:shadow-lg hover:bg-blue-700 active:scale-95 transition-all duration-200 mr-4"
+            mat-raised-button
+            color="primary"
+            (click)="addImage()"
+          >
+            Add Images
+          </button>
+          <button
+            class="!bg-red-600 !text-white !rounded-full px-6 py-2 font-medium shadow-md hover:shadow-lg hover:bg-blue-700 active:scale-95 transition-all duration-200 mr-4"
+            mat-raised-button
+            color="primary"
+            (click)="removeImage()"
+          >
+            Remove Images
+          </button>
+        </div>
         @for(item of images.controls; track $index){
         <mat-form-field class="w-full flex-col">
-          <mat-label>Images 1</mat-label>
-          <input matInput type="text" formControlName="img1" />
+          <mat-label>Images {{ $index + 1 }}</mat-label>
+          <input matInput type="text" [formControlName]="$index" />
         </mat-form-field>
         }
       </div>
     </div>
     <div class="flex justify-center">
-      <button mat-raised-button color="primary" (click)="addProduct()">Add</button>
+      <button
+        class="!bg-blue-600 !text-white !rounded-full px-6 py-2 font-medium shadow-md hover:shadow-lg hover:bg-blue-700 active:scale-95 transition-all duration-200 mr-4"
+        mat-raised-button
+        color="primary"
+        (click)="addProduct()"
+      >
+        Add
+      </button>
     </div>
   </form>
 </div>
