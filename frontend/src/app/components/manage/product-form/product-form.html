@@ -4,16 +4,18 @@
     <div class="flex flex-wrap">
       <mat-form-field class="w-full">
         <mat-label>Category</mat-label>
-        <mat-select formControlName="categoryId" multiple Class="fix-select-panel">
+        <mat-select formControlName="categoryId" Class="fix-select-panel">
           @for(item of categories; track $index){
-          <mat-option [value]="">{{ item.name }}</mat-option>
+          <mat-option [value]="item._id">{{ item.name }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
       <mat-form-field class="w-full">
         <mat-label>Brand</mat-label>
-        <mat-select formControlName="brandId" multiple>
-          <mat-option [value]="">option1</mat-option>
+        <mat-select formControlName="brandId">
+          @for(item of brands; track $index){
+          <mat-option [value]="item._id">{{ item.name }}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
@@ -70,6 +72,7 @@
         class="!bg-blue-600 !text-white !rounded-full px-6 py-2 font-medium shadow-md hover:shadow-lg hover:bg-blue-700 active:scale-95 transition-all duration-200 mr-4"
         mat-raised-button
         color="primary"
+        [disabled]="productForm.invalid"
         (click)="addProduct()"
       >
         Add

@@ -7,6 +7,8 @@ import { TBrand } from '../../../types/brand';
 import { TCategory } from '../../../types/category';
 import { Category } from '../../../services/category';
 import { Brand } from '../../../services/brand';
+import { Product } from '../../../services/product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-form',
@@ -29,6 +31,7 @@ export class ProductForm {
 
   categoryService = inject(Category);
   brandService = inject(Brand);
+  productService = inject(Product);
 
   brands: TBrand[] = [];
   categories: TCategory[] = [];
@@ -42,9 +45,14 @@ export class ProductForm {
       this.brands = result;
     });
   }
+  router = inject(Router);
   addProduct() {
     let value = this.productForm.value;
     console.log(value);
+    this.productService.addProduct(value as any).subscribe((result) => {
+      alert('Product Added');
+      this.router.navigateByUrl('/admin/products');
+    });
   }
   addImage() {
     this.images.push(this.formbuilder.control(null));
