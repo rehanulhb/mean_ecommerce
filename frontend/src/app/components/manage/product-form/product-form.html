@@ -1,5 +1,10 @@
 <div class="flex flex-col items-center px-40 mt-10">
-  <h1>Add New Product</h1>
+  @if(id){
+  <h1 class="text-6xl">Update Product</h1>
+  }@else {
+  <h1 class="text-6xl">Add New Product</h1>
+  }
+
   <form class="shadow-md p-4" [formGroup]="productForm">
     <div class="flex flex-wrap">
       <mat-form-field class="w-full">
@@ -68,6 +73,17 @@
       </div>
     </div>
     <div class="flex justify-center">
+      @if(id){
+      <button
+        class="!bg-blue-600 !text-white !rounded-full px-6 py-2 font-medium shadow-md hover:shadow-lg hover:bg-blue-700 active:scale-95 transition-all duration-200 mr-4"
+        mat-raised-button
+        color="primary"
+        [disabled]="productForm.invalid"
+        (click)="updateProduct()"
+      >
+        Update
+      </button>
+      }@else {
       <button
         class="!bg-blue-600 !text-white !rounded-full px-6 py-2 font-medium shadow-md hover:shadow-lg hover:bg-blue-700 active:scale-95 transition-all duration-200 mr-4"
         mat-raised-button
@@ -77,6 +93,7 @@
       >
         Add
       </button>
+      }
     </div>
   </form>
 </div>

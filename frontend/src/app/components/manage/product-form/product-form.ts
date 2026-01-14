@@ -8,7 +8,7 @@ import { TCategory } from '../../../types/category';
 import { Category } from '../../../services/category';
 import { Brand } from '../../../services/brand';
 import { Product } from '../../../services/product';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-form',
@@ -35,15 +35,29 @@ export class ProductForm {
 
   brands: TBrand[] = [];
   categories: TCategory[] = [];
+  id!: string;
+  route = inject(ActivatedRoute);
 
   ngOnInit() {
-    this.addImage();
     this.categoryService.getCategories().subscribe((result) => {
       this.categories = result;
     });
     this.brandService.getBrands().subscribe((result) => {
       this.brands = result;
     });
+
+    this.id = this.route.snapshot.params['id'];
+    console.log(this.id);
+    if (this.id) {
+      this.productService.getProductById(this.id).subscribe((result) => {
+        for (let index = 0; index < result.images.length; index++) {
+          this.addImage();
+        }
+        this.productForm.patchValue(result as any);
+      });
+    } else {
+      this.addImage();
+    }
   }
   router = inject(Router);
   addProduct() {
@@ -51,6 +65,14 @@ export class ProductForm {
     console.log(value);
     this.productService.addProduct(value as any).subscribe((result) => {
       alert('Product Added');
+      this.router.navigateByUrl('/admin/products');
+    });
+  }
+  updateProduct() {
+    let value = this.productForm.value;
+    console.log(value);
+    this.productService.updateProduct(this.id, value as any).subscribe((result) => {
+      alert('Product Updated');
       this.router.navigateByUrl('/admin/products');
     });
   }

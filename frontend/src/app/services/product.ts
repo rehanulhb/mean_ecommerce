@@ -13,7 +13,7 @@ export class Product {
     return this.http.get<TProduct[]>(environmentProd.apiUrl + '/product');
   }
   getProductById(id: string) {
-    return this.http.get<TProduct>(environmentProd.apiUrl + '/product' + id);
+    return this.http.get<TProduct>(environmentProd.apiUrl + '/product/' + id);
   }
 
   addProduct(model: TProduct) {
