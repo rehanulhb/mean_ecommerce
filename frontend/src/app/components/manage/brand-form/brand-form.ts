@@ -20,10 +20,12 @@ export class BrandForm {
   id!: string;
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
-    this.brandsService.getBrandById(this.id).subscribe((result) => {
-      this.name = result.name;
-      this.cdr.detectChanges();
-    });
+    if (this.id) {
+      this.brandsService.getBrandById(this.id).subscribe((result) => {
+        this.name = result.name;
+        this.cdr.detectChanges();
+      });
+    }
   }
 
   add() {
